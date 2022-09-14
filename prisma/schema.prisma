@@ -14,6 +14,8 @@ model Users {
   id          Int     @id @default(autoincrement())
   email       String  @unique
   password    String
+
+  @@map("users")
 }
 
 model Categories {
@@ -21,6 +23,8 @@ model Categories {
   name        String  @unique
 
   tests       Tests[]
+
+  @@map("categories")
 }
 
 model Teachers {
@@ -28,6 +32,8 @@ model Teachers {
   name                String  @unique
 
   teachersDisciplines TeachersDisciplines[]
+
+  @@map("teachers")
 }
 
 model Terms {
@@ -35,6 +41,8 @@ model Terms {
   number       Int     @unique
 
   disciplines  Disciplines[]
+
+  @@map("terms")
 }
 
 model Disciplines {
@@ -44,6 +52,8 @@ model Disciplines {
   termId               Int     
 
   teachersDisciplines  TeachersDisciplines[]
+
+  @@map("disciplines")
 }
 
 model TeachersDisciplines {
@@ -54,6 +64,8 @@ model TeachersDisciplines {
   disciplineId   Int   
 
   tests          Tests[]
+
+  @@map("teachersDisciplines")
 }
 
 model Tests {
@@ -64,4 +76,6 @@ model Tests {
   categoryId            Int    
   teacherDiscipline     TeachersDisciplines   @relation(fields:[teacherDisciplineId], references:[id])
   teacherDisciplineId   Int   
+
+  @@map("tests")
 }
