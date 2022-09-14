@@ -19,3 +19,8 @@ model Categories {
   id          Int     @id @default(autoincrement())
   name        String  @unique
 }
+
+model Teachers {
+  id          Int     @id @default(autoincrement())
+  name        String  @unique
+}
