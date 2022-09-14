@@ -19,6 +19,8 @@ model Users {
 model Categories {
   id          Int     @id @default(autoincrement())
   name        String  @unique
+
+  tests       Tests[]
 }
 
 model Teachers {
@@ -50,4 +52,16 @@ model TeachersDisciplines {
   teacherId      Int    
   discipline     Disciplines   @relation(fields:[disciplineId], references:[id])
   disciplineId   Int   
+
+  tests          Tests[]
+}
+
+model Tests {
+  id                    Int        @id @default(autoincrement())
+  name                  String
+  pdfUrl                String
+  category              Categories   @relation(fields:[categoryId], references:[id])
+  categoryId            Int    
+  teacherDiscipline     TeachersDisciplines   @relation(fields:[teacherDisciplineId], references:[id])
+  teacherDisciplineId   Int   
 }
