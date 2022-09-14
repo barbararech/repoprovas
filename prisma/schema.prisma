@@ -15,3 +15,7 @@ model Users {
   email       String  @unique
   password    String
 }
+model Categories {
+  id          Int     @id @default(autoincrement())
+  name        String  @unique
+}
