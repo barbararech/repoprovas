@@ -24,3 +24,8 @@ model Teachers {
   id          Int     @id @default(autoincrement())
   name        String  @unique
 }
+
+model Terms {
+  id          Int     @id @default(autoincrement())
+  number      Int     @unique
+}
