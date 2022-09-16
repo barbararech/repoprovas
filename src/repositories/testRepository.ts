@@ -19,3 +19,31 @@ export async function groupTestsByDiscipline() {
     },
   });
 }
+
+export async function groupTestsByTeacher() {
+  return await client.teachers.findMany({
+    select: {
+      name: true,
+      teachersDisciplines: {
+        select: {
+          discipline: {
+            select: {
+              name: true,
+            },
+          },
+          tests: {
+            select: {
+              name: true,
+              pdfUrl: true,
+              category: {
+                select: {
+                  name: true,
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  });
+}

@@ -32,8 +32,12 @@ export async function newTest(test: INewTest) {
   return registeredTest;
 }
 
-
 export async function getTestsByDiscipline() {
-  const tests =  await testRepository.groupTestsByDiscipline();
+  const tests = await testRepository.groupTestsByDiscipline();
+  return tests;
+}
+
+export async function getTestsByTeacher() {
+  const tests = await testRepository.groupTestsByTeacher();
   return tests;
 }

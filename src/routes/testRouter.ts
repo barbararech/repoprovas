@@ -19,5 +19,10 @@ router.get(
   testController.getTestsByDiscipline
 );
 
+router.get(
+  "/tests/teachers",
+  tokenValidationMiddleware,
+  testController.getTestsByTeacher
+);
 
 export default router;
