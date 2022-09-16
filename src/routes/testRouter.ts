@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { middleware } from "../middlewares/schemasValidationMiddleware";
-import * as authController from "../controllers/testController";
+import * as testController from "../controllers/testController";
 import { newTestSchema } from "../schemas/testSchema";
 import { tokenValidationMiddleware } from "../middlewares/authValidationMiddleware";
 
@@ -10,7 +10,14 @@ router.post(
   "/tests",
   tokenValidationMiddleware,
   middleware(newTestSchema),
-  authController.newTest
+  testController.newTest
 );
+
+router.get(
+  "/tests/disciplines",
+  tokenValidationMiddleware,
+  testController.getTestsByDiscipline
+);
+
 
 export default router;

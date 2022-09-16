@@ -41,7 +41,6 @@ model Terms {
   number       Int     @unique
 
   disciplines  Disciplines[]
-
   @@map("terms")
 }
 

@@ -6,3 +6,16 @@ export async function insertNewTest(test: INewTestData) {
     data: test,
   });
 }
+
+export async function groupTestsByDiscipline() {
+  return await client.terms.findMany({
+    select: {
+      number: true,
+      disciplines: {
+        select: {
+          name: true,
+        },
+      },
+    },
+  });
+}
