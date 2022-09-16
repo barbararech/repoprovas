@@ -2,7 +2,6 @@ import * as userService from "../services/userService";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { Users } from "@prisma/client";
-import { INewUser } from "../types/userTypes";
 
 export async function signUp(email: string, password: string) {
   const passwordCrypt = bcrypt.hashSync(password, 10);
