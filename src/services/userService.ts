@@ -21,7 +21,7 @@ export async function findUserByEmail(email: string) {
   const user = await userRepository.findUserByEmail(email);
 
   if (!user) {
-    throw { status: 404, message: "This user isn't registered!" };
+    throw { status: 401, message: "Unauthorized!" };
   }
 
   return user;

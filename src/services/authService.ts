@@ -16,7 +16,7 @@ export async function signUp(email: string, password: string) {
 export async function signIn(email: string, password: string) {
   const user = await userService.findUserByEmail(email);
   await checkPassword(user, password);
-
+  
   const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET as string);
   return token;
 }
