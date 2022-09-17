@@ -7,47 +7,41 @@ export async function insertNewTest(test: INewTestData) {
   });
 }
 
-// export async function groupTestsByDiscipline() {
-//   return await client.terms.findMany({
-//     select: {
-//       number: true,
-//       disciplines: {
-//         select: {
-//           name: true,
-//         },
-//       },
-//     },
-//   });
-// }
-
 export async function groupTestsByDiscipline() {
   return await client.terms.findMany({
-    select: {
+    select:{
       number: true,
-      disciplines: {
-        select: {
-          name: true,
-          teachersDisciplines: {
-            select: {
-              tests: {
-                select: {
-                  id: true,
-                  name: true,
-                  pdfUrl: true,
-                  teacherDiscipline: {
-                    select: { teacher: { select: { name: true } } },
-                  },
-                  category: {
-                    select: { name: true },
-                  },
-                },
-              },
-            },
-          },
-        },
-      },
-    },
-  });
+      disciplines:{
+          select:{
+              name: true,
+              teachersDisciplines: {
+              select:{
+                      tests:{distinct:['categoryId'],
+                     select:{
+                         category:{
+                             select:{
+                                 name:true,
+                                 tests:{
+                                  select:{
+                                      id: true,
+                                      name: true,
+                                      pdfUrl: true,
+                                      teacherDiscipline:{
+                                          select:{teacher:{select:{name:true}}},
+                                      }
+                                  }
+                                 }
+                              
+                             }
+                         }
+                     }
+                      }
+                  }
+              }
+          }
+      }
+  }
+})
 }
 
 // export async function groupTestsByTeacher() {
