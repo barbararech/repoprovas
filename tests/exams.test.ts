@@ -6,7 +6,7 @@ import testFactory from "./factories/testFactory";
 import { faker } from "@faker-js/faker";
 
 beforeEach(async () => {
-  await client.$executeRaw`TRUNCATE TABLE "tests"`;
+  await client.$executeRaw`TRUNCATE TABLE "tests" RESTART IDENTITY CASCADE`;
 });
 
 describe("Test POST /tests", () => {
@@ -17,12 +17,12 @@ describe("Test POST /tests", () => {
     const userLogin = { email: user.email, password: user.password };
     const response = await supertest(app).post(`/signin`).send(userLogin);
     const { token } = response.body;
-
+   
     const test = await testFactory();
     const result = await supertest(app)
       .post(`/tests`)
       .send(test)
-      .set("Authorization", `Bearer ${token}`);
+      .auth(token, { type: 'bearer' })
 
     expect(result.status).toBe(201);
     expect(result).not.toBeNull();
@@ -41,7 +41,7 @@ describe("Test POST /tests", () => {
     const result = await supertest(app)
       .post(`/tests`)
       .send(test)
-      .set("Authorization", `Bearer ${token}`);
+      .auth(token, { type: 'bearer' })
 
     expect(result.status).toBe(500);
   });
@@ -59,7 +59,7 @@ describe("Test POST /tests", () => {
     const result = await supertest(app)
       .post(`/tests`)
       .send(test)
-      .set("Authorization", `Bearer ${token}`);
+      .auth(token, { type: 'bearer' })
 
     expect(result.status).toBe(422);
   });
@@ -77,7 +77,7 @@ describe("Test POST /tests", () => {
     const result = await supertest(app)
       .post(`/tests`)
       .send(test)
-      .set("Authorization", `Bearer ${token}`);
+      .auth(token, { type: 'bearer' })
 
     expect(result.status).toBe(422);
   });
@@ -91,13 +91,12 @@ describe("Test POST /tests", () => {
     const { token } = response.body;
 
     const test = await testFactory();
-    console.log(Number(faker.random.numeric(8)));
     test.categoryId = Number(faker.random.numeric(8));
 
     const result = await supertest(app)
       .post(`/tests`)
       .send(test)
-      .set("Authorization", `Bearer ${token}`);
+      .auth(token, { type: 'bearer' })
 
     expect(result.status).toBe(404);
   });
@@ -111,13 +110,12 @@ describe("Test POST /tests", () => {
     const { token } = response.body;
 
     const test = await testFactory();
-    console.log(Number(faker.random.numeric(8)));
     test.disciplineId = Number(faker.random.numeric(8));
 
     const result = await supertest(app)
       .post(`/tests`)
       .send(test)
-      .set("Authorization", `Bearer ${token}`);
+      .auth(token, { type: 'bearer' })
 
     expect(result.status).toBe(404);
   });
@@ -131,13 +129,12 @@ describe("Test POST /tests", () => {
     const { token } = response.body;
 
     const test = await testFactory();
-    console.log(Number(faker.random.numeric(8)));
     test.teacherId = Number(faker.random.numeric(8));
 
     const result = await supertest(app)
       .post(`/tests`)
       .send(test)
-      .set("Authorization", `Bearer ${token}`);
+      .auth(token, { type: 'bearer' })
 
     expect(result.status).toBe(404);
   });
