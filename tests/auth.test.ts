@@ -20,7 +20,7 @@ describe("Test POST /signup", () => {
     });
 
     expect(result.status).toBe(201);
-    expect(createdUser).not.toBeNull();
+    expect(createdUser).toBeInstanceOf(Object);
   });
 
   it("Should return 409 if registered a user that already exists", async () => {
