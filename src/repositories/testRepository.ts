@@ -47,88 +47,22 @@ export async function groupTestsByDiscipline() {
 
 export async function groupTestsByTeacher() {
   return await client.teachers.findMany({
+    distinct: ["name"],
     select: {
       name: true,
       teachersDisciplines: {
         select: {
-          discipline: {
-            select: {
-              name: true,
-            },
-          },
+          discipline: { select: { name: true } },
           tests: {
             select: {
               name: true,
               pdfUrl: true,
-              category: {
-                select: {
-                  name: true,
-                },
-              },
+              category: { select: { name: true } },
             },
+            orderBy: { categoryId: "desc" },
           },
         },
       },
     },
   });
 }
-
-// export async function groupTestsByTeacher() {
-//   return await client.teachers.findMany({
-//     select: {
-//       name: true,
-//       teachersDisciplines: {
-//         select: {
-//           tests: {
-//             distinct: ["categoryId"],
-//             select: {
-//               category: {
-//                 select: {
-//                   name: true,
-//                   tests: {
-//                     select: {
-//                       name: true,
-//                       teacherDiscipline:{
-//                         select:{
-//                           discipline:{
-//                             select: {
-//                               name: true
-//                             }
-//                           }
-//                         }
-//                       }
-//                     },
-//                   },
-//                 },
-//               },
-//             },
-//             orderBy: [{ category: { name: "desc" } }],
-//           },
-//         },
-//       },
-//     },
-//   });
-// }
-
-// export async function groupTestsByTeacher() {
-//   return await client.teachers.findMany({
-//     where: {},
-//     distinct: ["name"],
-//     select: {
-//       name: true,
-//       teachersDisciplines: {
-//         select: {
-//           discipline: { select: { name: true } },
-//           tests: {
-//             select: {
-//               name: true,
-//               pdfUrl: true,
-//               category: { select: { name: true } },
-//             },
-//             orderBy: { categoryId: "desc" },
-//           },
-//         },
-//       },
-//     },
-//   });
-// }
