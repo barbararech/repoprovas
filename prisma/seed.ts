@@ -10,14 +10,17 @@ async function main() {
       { number: 5 },
       { number: 6 },
     ],
+    skipDuplicates: true,
   });
 
   await client.categories.createMany({
     data: [{ name: "Projeto" }, { name: "Prática" }, { name: "Recuperação" }],
+    skipDuplicates: true,
   });
 
   await client.teachers.createMany({
     data: [{ name: "Diego Pinho" }, { name: "Bruna Hamori" }],
+    skipDuplicates: true,
   });
 
   await client.disciplines.createMany({
@@ -29,6 +32,7 @@ async function main() {
       { name: "Planejamento", termId: 2 },
       { name: "Autoconfiança", termId: 3 },
     ],
+    skipDuplicates: true,
   });
 
   await client.teachersDisciplines.createMany({
@@ -40,6 +44,7 @@ async function main() {
       { teacherId: 2, disciplineId: 5 },
       { teacherId: 2, disciplineId: 6 },
     ],
+    skipDuplicates: true,
   });
 }
 
